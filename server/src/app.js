@@ -8,6 +8,8 @@ import errorMiddleware from "./middlewares/errorMiddleware.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
+import commentRoutes from "./routes/commentRoutes.js";
+import storyRoutes from "./routes/storyRoutes.js";
 
 const app = express();
 
@@ -43,6 +45,8 @@ app.get("/api/health", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/comments", commentRoutes);
+app.use("/api/stories", storyRoutes);
 
 // --- Error ---
 app.use(errorMiddleware);
