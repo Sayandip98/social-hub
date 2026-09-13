@@ -3,8 +3,12 @@ import http from "http";
 import app from "./app.js";
 import connectDB from "./config/db.js";
 import { PORT } from "./config/env.js";
+import { initSocket } from "./sockets/index.js";
 
 const server = http.createServer(app);
+
+// --- Socket.io initialized  ---
+const io = initSocket(server);
 
 const startServer = async () => {
   try {
@@ -20,7 +24,4 @@ const startServer = async () => {
 
 startServer();
 
-// --- Socket.io will be initialized here later ---
-// initSocket(server);
-
-export { server };
+export { server, io };

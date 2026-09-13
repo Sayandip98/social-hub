@@ -6,6 +6,10 @@ import {
   uploadMultiplePostMedia,
   deleteFromCloudinary,
 } from "./uploadService.js";
+import {
+  createNotification,
+  removeNotification,
+} from "./notificationService.js";
 
 // ---- Create Post ----
 const createPost = async (userId, postData, files) => {
@@ -259,6 +263,13 @@ const likePost = async (postId, userId) => {
 
   await Post.findByIdAndUpdate(postId, { $addToSet: { likes: userId } });
 
+  await createNotification({
+    receiverId: post.author,
+    senderId: userId,
+    type: "like",
+    postId: postId,
+  });
+
   return { liked: true, likesCount: post.likes.length + 1 };
 };
 
@@ -276,6 +287,13 @@ const unlikePost = async (postId, userId) => {
   }
 
   await Post.findByIdAndUpdate(postId, { $pull: { likes: userId } });
+
+  await removeNotification({
+    receiverId: post.author,
+    senderId: userId,
+    type: "like",
+    postId: postId,
+  });
 
   return { liked: false, likesCount: post.likes.length - 1 };
 };

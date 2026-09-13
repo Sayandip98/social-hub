@@ -1,6 +1,7 @@
 import Comment from "../models/Comment.js";
 import Post from "../models/Post.js";
 import ApiError from "../utils/ApiError.js";
+import { createNotification } from "./notificationService.js";
 
 // ---- Add Comment ----
 const addComment = async (postId, userId, text) => {
@@ -27,6 +28,14 @@ const addComment = async (postId, userId, text) => {
     "author",
     "username fullName avatar",
   );
+
+  await createNotification({
+    receiverId: post.author,
+    senderId: userId,
+    type: "comment",
+    postId: postId,
+    commentId: comment._id,
+  });
 
   return populatedComment;
 };
@@ -158,6 +167,14 @@ const replyToComment = async (commentId, userId, text) => {
     "author",
     "username fullName avatar",
   );
+
+  await createNotification({
+    receiverId: parentComment.author,
+    senderId: userId,
+    type: "comment",
+    postId: parentComment.post,
+    commentId: reply._id,
+  });
 
   return populatedReply;
 };

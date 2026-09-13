@@ -6,6 +6,10 @@ import {
   uploadCoverImage,
   deleteFromCloudinary,
 } from "./uploadService.js";
+import {
+  createNotification,
+  removeNotification,
+} from "./notificationService.js";
 
 // ---- Get User Profile ----
 const getUserProfile = async (username, currentUserId) => {
@@ -136,6 +140,12 @@ const followUser = async (currentUserId, targetUserId) => {
     }),
   ]);
 
+  await createNotification({
+    receiverId: targetUserId,
+    senderId: currentUserId,
+    type: "follow",
+  });
+
   return { followed: true };
 };
 
@@ -167,6 +177,12 @@ const unfollowUser = async (currentUserId, targetUserId) => {
       $pull: { followers: currentUserId },
     }),
   ]);
+
+  await removeNotification({
+    receiverId: targetUserId,
+    senderId: currentUserId,
+    type: "follow",
+  });
 
   return { unfollowed: true };
 };
