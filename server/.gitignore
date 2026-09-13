@@ -1,0 +1,127 @@
+# ========================
+# Environment Variables
+# ========================
+.env
+.env.local
+.env.development
+.env.production
+.env.staging
+.env.test
+
+# ========================
+# Dependencies
+# ========================
+node_modules/
+.npm
+.yarn/
+yarn.lock
+package-lock.json
+
+# ========================
+# Logs
+# ========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+nodemon-debug.log*
+
+# ========================
+# Build / Compiled Output
+# ========================
+dist/
+build/
+out/
+
+# ========================
+# OS Generated Files
+# ========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ========================
+# IDE / Editor Files
+# ========================
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*.swo
+.project
+.classpath
+.settings/
+
+# ========================
+# Testing
+# ========================
+coverage/
+.nyc_output/
+*.lcov
+junit.xml
+
+# ========================
+# Uploads / Media
+# ========================
+uploads/
+tmp/
+temp/
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+*.svg
+*.pdf
+
+# ========================
+# Database
+# ========================
+*.sqlite
+*.sqlite3
+*.db
+dump.rdb
+
+# ========================
+# Cache
+# ========================
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+
+# ========================
+# Runtime / Process
+# ========================
+pids/
+*.pid
+*.seed
+*.pid.lock
+.node_repl_history
+
+# ========================
+# Secrets / Keys
+# ========================
+*.pem
+*.key
+*.cert
+*.crt
+*.p12
+*.pfx
+secrets/
+private/
