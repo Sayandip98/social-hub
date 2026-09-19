@@ -1,0 +1,350 @@
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-4);
+  overflow: hidden;
+  animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---- Header ---- */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  transition: color var(--transition-fast);
+}
+
+.username:hover {
+  color: var(--color-text-secondary);
+}
+
+.location {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.moreBtn {
+  color: var(--color-text-secondary);
+  padding: var(--space-1);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+}
+
+.moreBtn:hover {
+  background: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
+/* ---- Media ---- */
+.mediaContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--color-surface-hover);
+}
+
+.media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.mediaContainer:hover .media {
+  transform: scale(1.01);
+}
+
+/* ---- Carousel dots ---- */
+.dots {
+  position: absolute;
+  bottom: var(--space-3);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--space-1);
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.6);
+  transition: all var(--transition-fast);
+}
+
+.dot.active {
+  width: 16px;
+  background: #ffffff;
+}
+
+/* ---- Carousel navigation ---- */
+.carouselNav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: none;
+  box-shadow: var(--shadow-md);
+}
+
+.carouselNav:hover {
+  background: #ffffff;
+  transform: translateY(-50%) scale(1.05);
+}
+
+.carouselPrev {
+  left: var(--space-3);
+}
+
+.carouselNext {
+  right: var(--space-3);
+}
+
+/* ---- Actions ---- */
+.actions {
+  display: flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  gap: var(--space-2);
+}
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  transition: all var(--transition-fast);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.actionBtn:hover {
+  background: var(--color-surface-hover);
+  transform: scale(1.1);
+}
+
+.actionBtn.liked {
+  color: var(--color-secondary);
+}
+
+.actionBtn.bookmarked {
+  color: var(--color-text-primary);
+}
+
+.bookmarkBtn {
+  margin-left: auto;
+}
+
+/* ---- Like animation ---- */
+@keyframes heartPop {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.3);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.likeAnimation {
+  animation: heartPop 0.3s ease;
+}
+
+/* ---- Info section ---- */
+.info {
+  padding: 0 var(--space-4) var(--space-3);
+}
+
+.likesCount {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+  cursor: pointer;
+}
+
+.likesCount:hover {
+  color: var(--color-text-secondary);
+}
+
+/* ---- Caption ---- */
+.caption {
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-normal);
+  margin-bottom: var(--space-1);
+}
+
+.captionUsername {
+  font-weight: var(--font-weight-semibold);
+  margin-right: var(--space-1);
+  cursor: pointer;
+}
+
+.captionUsername:hover {
+  color: var(--color-text-secondary);
+}
+
+.captionText {
+  word-break: break-word;
+}
+
+.hashtag {
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.hashtag:hover {
+  text-decoration: underline;
+}
+
+.showMore {
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: var(--space-1);
+}
+
+.showMore:hover {
+  color: var(--color-text-secondary);
+}
+
+/* ---- Comments preview ---- */
+.commentsPreview {
+  margin-bottom: var(--space-1);
+}
+
+.viewAllComments {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-bottom: var(--space-1);
+  display: block;
+}
+
+.viewAllComments:hover {
+  color: var(--color-text-primary);
+}
+
+.commentLine {
+  font-size: var(--font-size-base);
+  margin-bottom: var(--space-1);
+  line-height: var(--line-height-normal);
+}
+
+.commentUsername {
+  font-weight: var(--font-weight-semibold);
+  margin-right: var(--space-1);
+  cursor: pointer;
+}
+
+/* ---- Time ---- */
+.timeAgo {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ---- Add comment ---- */
+.addComment {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.commentInput {
+  flex: 1;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background: none;
+  border: none;
+  outline: none;
+  resize: none;
+  line-height: var(--line-height-normal);
+}
+
+.commentInput::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.postCommentBtn {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  white-space: nowrap;
+  transition: opacity var(--transition-fast);
+}
+
+.postCommentBtn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.postCommentBtn:not(:disabled):hover {
+  color: var(--color-primary-hover);
+}

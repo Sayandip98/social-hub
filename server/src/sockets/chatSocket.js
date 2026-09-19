@@ -66,7 +66,10 @@ const registerChatSocket = (io, socket, onlineUsers) => {
       );
 
       io.to(`conversation:${conversationId}`).emit("message:new", {
-        message: populatedMessage,
+        message: {
+          ...populatedMessage.toObject(),
+          conversation: conversationId.toString(), // ← ensure string
+        },
         tempId,
       });
 

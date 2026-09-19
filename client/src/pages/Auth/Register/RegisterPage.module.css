@@ -1,0 +1,173 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-align: center;
+}
+
+.subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-top: calc(-1 * var(--space-4));
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ---- Name row ---- */
+.nameRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+/* ---- Password strength ---- */
+.strengthBar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+}
+
+.strengthTrack {
+  display: flex;
+  gap: var(--space-1);
+  height: 4px;
+}
+
+.strengthSegment {
+  flex: 1;
+  border-radius: var(--radius-full);
+  background: var(--color-border);
+  transition: background var(--transition-normal);
+}
+
+.strengthSegment.active.weak {
+  background: var(--color-error);
+}
+
+.strengthSegment.active.fair {
+  background: var(--color-warning);
+}
+
+.strengthSegment.active.good {
+  background: #3498db;
+}
+
+.strengthSegment.active.strong {
+  background: var(--color-success);
+}
+
+.strengthLabel {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.strengthLabel.weak {
+  color: var(--color-error);
+}
+
+.strengthLabel.fair {
+  color: var(--color-warning);
+}
+
+.strengthLabel.good {
+  color: #3498db;
+}
+
+.strengthLabel.strong {
+  color: var(--color-success);
+}
+
+/* ---- Terms ---- */
+.terms {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  text-align: center;
+  line-height: var(--line-height-relaxed);
+}
+
+.terms a {
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  transition: color var(--transition-fast);
+}
+
+.terms a:hover {
+  color: var(--color-primary);
+}
+
+/* ---- Error Alert ---- */
+.errorAlert {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(237, 73, 86, 0.08);
+  border: 1px solid rgba(237, 73, 86, 0.2);
+  border-radius: var(--radius-md);
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+  animation: fadeIn var(--transition-fast) ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---- Bottom link ---- */
+.bottomLink {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.bottomLink a {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.bottomLink a:hover {
+  color: var(--color-primary-hover);
+}
+
+/* ---- Password toggle ---- */
+.passwordToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.passwordToggle:hover {
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 480px) {
+  .nameRow {
+    grid-template-columns: 1fr;
+  }
+}

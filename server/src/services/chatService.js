@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Conversation from "../models/Conversation.js";
 import Message from "../models/Message.js";
 import User from "../models/User.js";
@@ -13,33 +14,57 @@ const getOrCreateConversation = async (currentUserId, targetUserId) => {
   const targetUser = await User.findById(targetUserId).select(
     "username fullName avatar isActive",
   );
-  if (!targetUser) {
-    throw new ApiError(404, "User not found");
-  }
 
-  if (!targetUser.isActive) {
-    throw new ApiError(403, "This account is deactivated");
-  }
+  if (!targetUser) throw new ApiError(404, "User not found");
+  if (!targetUser.isActive) throw new ApiError(403, "Account deactivated");
 
-  let conversation = await Conversation.findOne({
-    participants: { $all: [currentUserId, targetUserId] },
+  const currentUserObjectId = new mongoose.Types.ObjectId(
+    currentUserId.toString(),
+  );
+  const targetUserObjectId = new mongoose.Types.ObjectId(
+    targetUserId.toString(),
+  );
+
+  // Find ALL conversations and check participants manually
+  // This is the most reliable approach
+  const existingConversations = await Conversation.find({
     isGroup: false,
+    participants: { $all: [currentUserObjectId, targetUserObjectId] },
   })
     .populate("participants", "username fullName avatar isActive")
     .populate({
       path: "lastMessage",
-      populate: {
-        path: "sender",
-        select: "username avatar",
-      },
+      populate: { path: "sender", select: "username avatar" },
     });
 
-  if (conversation) {
-    return { conversation, isNew: false };
+  // If duplicates exist — clean them up, keep only the first one
+  if (existingConversations.length > 1) {
+    console.log(
+      `Found ${existingConversations.length} duplicate conversations — cleaning up`,
+    );
+
+    // Keep the oldest conversation
+    const [keep, ...duplicates] = existingConversations.sort(
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt),
+    );
+
+    // Delete duplicate conversations and their messages
+    for (const dup of duplicates) {
+      await Message.deleteMany({ conversation: dup._id });
+      await Conversation.findByIdAndDelete(dup._id);
+    }
+
+    return { conversation: keep, isNew: false };
   }
 
-  conversation = await Conversation.create({
-    participants: [currentUserId, targetUserId],
+  // Exactly one found — return it
+  if (existingConversations.length === 1) {
+    return { conversation: existingConversations[0], isNew: false };
+  }
+
+  // None found — create new
+  let conversation = await Conversation.create({
+    participants: [currentUserObjectId, targetUserObjectId],
     isGroup: false,
   });
 
