@@ -11,10 +11,7 @@
 <br/>
 
 [![Live Demo](https://img.shields.io/badge/🚀%20Live%20Demo-Visit%20Now-0095f6?style=for-the-badge)](https://social-hub-beta-three.vercel.app)
-[![Backend API](https://img.shields.io/badge/🔗%20Backend%20API-Railway-6366f1?style=for-the-badge)](https://socialhub-api.railway.app/api/health)
-[![GitHub Stars](https://img.shields.io/github/stars/yourusername/socialhub?style=for-the-badge&color=yellow)](https://github.com/yourusername/socialhub/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/yourusername/socialhub?style=for-the-badge&color=orange)](https://github.com/yourusername/socialhub/forks)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+[![Backend API](https://img.shields.io/badge/🔗%20Backend%20API-vercel-6366f1?style=for-the-badge)](https://social-hub-3j23.onrender.com/api/health)
 
 <br/>
 
@@ -333,7 +330,7 @@ Cloudinary account
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/socialhub.git
+git clone https://github.com/Sayandip98/socialhub.git
 cd socialhub
 ```
 
@@ -411,19 +408,28 @@ After running `npm run seed` in the server, use any of these accounts:
 
 ## 🌍 Deployment
 
-### Backend → Railway
-
-```bash
-# Install Railway CLI
-npm install -g @railway/cli
-
-# Login and deploy
-railway login
-railway init
-railway up
+### Backend → Render
+```
+Login and deploy
+https://render.com → Sign up / Login → New → Web Service
+```
+### Connect GitHub
+```
+Connect GitHub → Select your socialhub repository
+```
+### Configure Web Service
+```
+Name            : socialhub-api
+Region          : Singapore (closest to India)
+Branch          : main
+Root Directory  : server
+Runtime         : Node
+Build Command   : npm install
+Start Command   : node src/server.js
+Instance Type   : Free
 ```
 
-Set environment variables in Railway dashboard.
+Set environment variables in Render dashboard.
 
 ### Frontend → Vercel
 
