@@ -10,6 +10,18 @@ const server = http.createServer(app);
 // --- Socket.io initialized  ---
 const io = initSocket(server);
 
+// Keep server alive on free tier — ping every 14 minutes
+if (process.env.NODE_ENV === "production") {
+    setInterval(async () => {
+        try {
+            await fetch(`${process.env.RENDER_EXTERNAL_URL}/api/health`);
+            console.log("Keep-alive ping sent");
+        } catch (e) {
+            // ignore
+        }
+    }, 14 * 60 * 1000); // 14 minutes
+}
+
 const startServer = async () => {
   try {
     await connectDB();

@@ -5,9 +5,7 @@ let socket = null;
 
 // ---- Connect Socket ----
 export const connectSocket = (token) => {
-  if (socket) {
-    socket.disconnect();
-  }
+  if (socket) socket.disconnect();
 
   socket = io(SOCKET_URL, {
     auth: { token },
@@ -16,6 +14,7 @@ export const connectSocket = (token) => {
     reconnection: true,
     reconnectionDelay: 1000,
     reconnectionAttempts: 5,
+    timeout: 20000,
   });
 
   socket.on("connect", () => {
@@ -27,7 +26,7 @@ export const connectSocket = (token) => {
   });
 
   socket.on("connect_error", (error) => {
-    console.error("Socket connection error:", error.message);
+    console.error("Socket error:", error.message);
   });
 
   return socket;
