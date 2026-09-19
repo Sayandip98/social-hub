@@ -21,8 +21,13 @@ app.use(helmet());
 // --- CORS ---
 app.use(
   cors({
-    origin: CLIENT_URL,
+    origin: [
+      process.env.CLIENT_URL, // production Vercel URL
+      "http://localhost:5173", // local development
+    ],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
 
