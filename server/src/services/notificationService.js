@@ -1,6 +1,6 @@
 import Notification from "../models/Notification.js";
 import ApiError from "../utils/ApiError.js";
-import { io } from "../server.js";
+import { getIO } from "../sockets/index.js";
 
 // ---- Create Notification ----
 const createNotification = async ({
@@ -45,6 +45,7 @@ const createNotification = async ({
     .populate("comment", "text")
     .populate("story", "media");
 
+  const io = getIO();
   if (io && populatedNotification) {
     io.to(receiverId.toString()).emit(
       "notification:new",

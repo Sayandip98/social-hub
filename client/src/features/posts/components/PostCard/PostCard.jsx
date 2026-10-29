@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Heart,
@@ -92,6 +92,12 @@ const PostCard = ({ post }) => {
   const [addComment] = useAddCommentMutation();
 
   const isOwner = user?._id === post.author?._id;
+
+  useEffect(() => {
+    setIsLiked(post.isLiked);
+    setLikesCount(post.likes?.length || 0);
+    setIsBookmarked(post.isBookmarked);
+  }, [post.isLiked, post.likes, post.isBookmarked]);
 
   // ---- Like Handler ----
   const handleLike = async () => {

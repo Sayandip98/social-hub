@@ -126,7 +126,9 @@ const followUser = async (currentUserId, targetUserId) => {
     throw new ApiError(404, "User not found");
   }
 
-  const alreadyFollowing = currentUser.following.includes(targetUserId);
+  const alreadyFollowing = currentUser.following.some(
+    (id) => id.toString() === targetUserId.toString(),
+  );
   if (alreadyFollowing) {
     throw new ApiError(400, "You are already following this user");
   }
@@ -164,7 +166,9 @@ const unfollowUser = async (currentUserId, targetUserId) => {
     throw new ApiError(404, "User not found");
   }
 
-  const isFollowing = currentUser.following.includes(targetUserId);
+  const isFollowing = currentUser.following.some(
+    (id) => id.toString() === targetUserId.toString(),
+  );
   if (!isFollowing) {
     throw new ApiError(400, "You are not following this user");
   }

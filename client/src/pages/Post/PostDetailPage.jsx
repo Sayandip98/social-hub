@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import {
   ArrowLeft,
@@ -183,7 +183,7 @@ const PostDetailPage = () => {
   const isOwner = user?._id === post?.author?._id;
 
   // Sync liked/bookmarked state from API
-  useState(() => {
+  useEffect(() => {
     if (data?.data) {
       setIsLiked(data.data.isLiked);
       setIsBookmarked(data.data.isBookmarked);

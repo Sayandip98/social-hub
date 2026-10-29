@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import helmet from "helmet";
 import { CLIENT_URL } from "./config/env.js";
+import ApiError from "./utils/ApiError.js";
 import errorMiddleware from "./middlewares/errorMiddleware.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
@@ -56,6 +57,11 @@ app.use("/api/comments", commentRoutes);
 app.use("/api/stories", storyRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/notifications", notificationRoutes);
+
+// --- 404 Handler for Unmatched API Routes ---
+app.use((req, res, next) => {
+  next(new ApiError(404, `Route ${req.method} ${req.originalUrl} not found`));
+});
 
 // --- Error ---
 app.use(errorMiddleware);

@@ -100,7 +100,9 @@ const getPostById = async (postId, currentUserId) => {
 const getFeed = async (currentUserId, page = 1, limit = 10) => {
   const skip = (page - 1) * limit;
 
-  const currentUser = await User.findById(currentUserId).select("following");
+  const currentUser = await User.findById(currentUserId).select(
+    "following bookmarks",
+  );
   const followingIds = currentUser.following;
 
   const feedUserIds = [currentUserId, ...followingIds];
@@ -256,7 +258,9 @@ const likePost = async (postId, userId) => {
     throw new ApiError(404, "Post not found");
   }
 
-  const alreadyLiked = post.likes.includes(userId);
+  const alreadyLiked = post.likes.some(
+    (id) => id.toString() === userId.toString(),
+  );
   if (alreadyLiked) {
     throw new ApiError(400, "Post already liked");
   }
@@ -281,7 +285,9 @@ const unlikePost = async (postId, userId) => {
     throw new ApiError(404, "Post not found");
   }
 
-  const isLiked = post.likes.includes(userId);
+  const isLiked = post.likes.some(
+    (id) => id.toString() === userId.toString(),
+  );
   if (!isLiked) {
     throw new ApiError(400, "Post not liked yet");
   }
@@ -329,7 +335,9 @@ const bookmarkPost = async (postId, userId) => {
 
   const user = await User.findById(userId).select("bookmarks");
 
-  const alreadyBookmarked = user.bookmarks.includes(postId);
+  const alreadyBookmarked = (user.bookmarks || []).some(
+    (id) => id.toString() === postId.toString(),
+  );
 
   if (alreadyBookmarked) {
     // Remove bookmark

@@ -112,7 +112,9 @@ const likeComment = async (commentId, userId) => {
     throw new ApiError(404, "Comment not found");
   }
 
-  const alreadyLiked = comment.likes.includes(userId);
+  const alreadyLiked = comment.likes.some(
+    (id) => id.toString() === userId.toString(),
+  );
   if (alreadyLiked) {
     throw new ApiError(400, "Comment already liked");
   }
@@ -130,7 +132,9 @@ const unlikeComment = async (commentId, userId) => {
     throw new ApiError(404, "Comment not found");
   }
 
-  const isLiked = comment.likes.includes(userId);
+  const isLiked = comment.likes.some(
+    (id) => id.toString() === userId.toString(),
+  );
   if (!isLiked) {
     throw new ApiError(400, "Comment not liked yet");
   }

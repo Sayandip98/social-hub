@@ -23,6 +23,7 @@ const AppRoutes = () => {
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<Navigate to="/login" replace />} />
         </Route>
       </Route>
 
@@ -31,6 +32,8 @@ const AppRoutes = () => {
         <Route element={<MainLayout />}>
           <Route index element={<FeedPage />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/explore" element={<SearchPage defaultTab="posts" />} />
+          <Route path="/reels" element={<Navigate to="/explore" replace />} />
           <Route path="/notifications" element={<NotificationsPage />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/chat/:conversationId" element={<ChatPage />} />

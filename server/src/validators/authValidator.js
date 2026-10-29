@@ -2,13 +2,13 @@ import Joi from "joi";
 
 export const registerSchema = Joi.object({
   username: Joi.string()
-    .alphanum()
+    .pattern(/^[a-zA-Z0-9_]+$/)
     .min(3)
     .max(30)
     .lowercase()
     .required()
     .messages({
-      "string.alphanum": "Username can only contain letters and numbers",
+      "string.pattern.base": "Username can only contain letters, numbers and underscores",
       "string.min": "Username must be at least 3 characters",
       "string.max": "Username cannot exceed 30 characters",
       "any.required": "Username is required",

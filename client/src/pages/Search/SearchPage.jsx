@@ -57,11 +57,13 @@ const UserItem = ({ user }) => {
 };
 
 // ---- Search Page ----
-const SearchPage = () => {
+const SearchPage = ({ defaultTab = "users" }) => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") || "");
-  const [activeTab, setActiveTab] = useState("users");
+  const [activeTab, setActiveTab] = useState(
+    searchParams.get("tab") || defaultTab,
+  );
   const debouncedQuery = useDebounce(query, 400);
 
   const { data: usersData, isLoading: usersLoading } = useSearchUsersQuery(
@@ -81,15 +83,15 @@ const SearchPage = () => {
     const val = e.target.value;
     setQuery(val);
     if (val) {
-      setSearchParams({ q: val });
+      setSearchParams({ q: val, tab: activeTab });
     } else {
-      setSearchParams({});
+      setSearchParams({ tab: activeTab });
     }
   };
 
   const handleClear = () => {
     setQuery("");
-    setSearchParams({});
+    setSearchParams({ tab: activeTab });
   };
 
   return (

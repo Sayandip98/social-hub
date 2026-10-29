@@ -6,6 +6,7 @@ import { registerChatSocket } from "./chatSocket.js";
 import { registerNotificationSocket } from "./notificationSocket.js";
 
 const onlineUsers = new Map();
+let ioInstance = null;
 
 const initSocket = (server) => {
   const io = new Server(server, {
@@ -20,6 +21,8 @@ const initSocket = (server) => {
     upgradeTimeout    : 30000,
     allowUpgrades     : true
   });
+
+  ioInstance = io;
 
   // ---- Auth Middleware for Socket ----
   io.use(async (socket, next) => {
@@ -94,4 +97,6 @@ const initSocket = (server) => {
   return io;
 };
 
-export { initSocket, onlineUsers };
+const getIO = () => ioInstance;
+
+export { initSocket, onlineUsers, getIO };
